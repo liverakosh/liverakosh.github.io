@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hamza Liverakos — Support Analyst</title>
+  <meta name="description" content="IT Support Analyst with 4+ years of experience in technical support, hardware lifecycle management, and workflow automation." />
+
+  <!-- ===== Tailwind CSS via CDN (no install needed) ===== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ===== Google Fonts: Fraunces (display) + Inter Tight (body) ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ===== Lucide icons ===== -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ===== Color + font tokens ===== */
+    :root {
+      --bg: #f5efe4;          /* warm cream beige */
+      --bg-soft: #ebe3d3;     /* slightly deeper beige */
+      --surface: #fbf7ee;     /* card background, lighter than bg */
+      --text: #2a2e1f;        /* deep olive ink */
+      --text-muted: #6b6a5a;  /* warm muted gray-green */
+      --accent: #6b8e5a;      /* pistachio green */
+      --accent-soft: #8fb377; /* lighter pistachio */
+      --line: #d9d0bd;        /* soft beige border */
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter Tight', sans-serif;
+      font-feature-settings: "ss01", "cv11";
+    }
+    .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+    .font-mono    { font-family: 'JetBrains Mono', monospace; }
+
+    /* ===== Subtle grain overlay for depth ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+      opacity: 0.08;
+    }
+
+    /* ===== Glow accent behind hero ===== */
+    .glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(143,179,119,0.35) 0%, transparent 70%);
+      filter: blur(60px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== Section divider ===== */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    /* ===== Animations ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+    .delay-4 { animation-delay: 0.55s; }
+    .delay-5 { animation-delay: 0.7s; }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+    .cursor-blink { animation: blink 1s infinite; }
+
+    /* ===== Reveal on scroll ===== */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== Card hover ===== */
+    .card { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid var(--line); }
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+    /* ===== Timeline line ===== */
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0.4375rem;
+      top: 1.5rem;
+      bottom: -1.5rem;
+      width: 1px;
+      background: var(--line);
+    }
+    .timeline-item:last-child::before { display: none; }
+
+    /* ===== Custom selection color ===== */
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    /* ===== Smooth nav active state ===== */
+    .nav-link { position: relative; transition: color 0.2s; }
+    .nav-link:hover { color: var(--accent-soft); }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent-soft);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+  </style>
+</head>
+
+<body class="antialiased">
+
+  <!-- ============================================== -->
+  <!-- NAVIGATION                                     -->
+  <!-- ============================================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b" style="background-color: rgba(245, 239, 228, 0.75); border-color: var(--line);">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#hero" class="font-display text-xl font-semibold tracking-tight" style="color: var(--text);">
+        Hamza<span style="color: var(--accent);">.</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#about" class="nav-link" style="color: var(--text-muted);">About</a>
+        <a href="#experience" class="nav-link" style="color: var(--text-muted);">Experience</a>
+        <a href="#projects" class="nav-link" style="color: var(--text-muted);">Projects</a>
+        <a href="#skills" class="nav-link" style="color: var(--text-muted);">Skills</a>
+        <a href="#contact" class="nav-link" style="color: var(--text-muted);">Contact</a>
+      </div>
+      <a href="Hamza_Liverakos_Resume.pdf" download
+         class="text-xs font-mono uppercase tracking-wider px-4 py-2 rounded-full border transition-all hover:text-[#fbf7ee]"
+         style="border-color: var(--accent); color: var(--accent); background: transparent;"
+         onmouseover="this.style.background='var(--accent)';this.style.color='var(--bg)';"
+         onmouseout="this.style.background='transparent';this.style.color='var(--accent)';">
+        Download CV
+      </a>
+    </div>
+  </nav>
+
+  <!-- ============================================== -->
+  <!-- HERO                                           -->
+  <!-- ============================================== -->
+  <section id="hero" class="relative min-h-screen flex items-center px-6 pt-24 pb-16 overflow-hidden">
+    <div class="glow" style="top: -100px; left: -150px;"></div>
+    <div class="glow" style="bottom: -100px; right: -150px; opacity: 0.6;"></div>
+
+    <div class="max-w-6xl mx-auto w-full relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+
+        <!-- Left: text -->
+        <div>
+          <p class="section-label fade-up delay-1 mb-6">
+            <span class="inline-block w-2 h-2 rounded-full mr-2" style="background: #6b8e5a; box-shadow: 0 0 12px #8fb377;"></span>
+            Available for new opportunities
+          </p>
+
+          <h1 class="font-display text-5xl sm:text-6xl md:text-7xl font-light leading-[0.95] tracking-tight fade-up delay-2 mb-8">
+            Hamza<br/>
+            <span class="italic font-medium" style="color: var(--accent-soft);">Liverakos</span>
+          </h1>
+
+          <p class="text-xl md:text-2xl font-light leading-relaxed fade-up delay-3 mb-10" style="color: var(--text-muted);">
+            IT Support Analyst at <span style="color: var(--text);">LSquared</span> — building automation,
+            managing hardware lifecycles, and turning chaos into clean systems<span class="cursor-blink">_</span>
+          </p>
+
+          <div class="flex flex-wrap gap-4 fade-up delay-4">
+            <a href="#projects" class="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm transition-all"
+               style="background: var(--accent); color: var(--bg);">
+              See my work
+              <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+            </a>
+            <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm border transition-all"
+               style="border-color: var(--text); color: var(--text);"
+               onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)';"
+               onmouseout="this.style.borderColor='var(--text)';this.style.color='var(--text)';">
+              Get in touch
+            </a>
+          </div>
+
+          <!-- Reworked stats — technical framing -->
+          <div class="mt-16 grid grid-cols-3 gap-6 fade-up delay-5">
+            <div>
+              <div class="font-display text-4xl font-light" style="color: var(--accent);">40%</div>
+              <div class="text-xs font-mono uppercase tracking-wider mt-1" style="color: var(--text-muted);">Risk Reduction</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-light" style="color: var(--accent);">4+</div>
+              <div class="text-xs font-mono uppercase tracking-wider mt-1" style="color: var(--text-muted);">Years in IT</div>
+            </div>
+            <div>
+              <div class="font-display text-4xl font-light" style="color: var(--accent);">5</div>
+              <div class="text-xs font-mono uppercase tracking-wider mt-1" style="color: var(--text-muted);">Roles &amp; Industries</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: photo -->
+        <div class="flex justify-center md:justify-end fade-up delay-3">
+          <div class="relative">
+            <!-- Decorative ring -->
+            <div class="absolute -inset-3 rounded-3xl opacity-30" style="background: var(--accent); filter: blur(20px);"></div>
+            <!-- Offset border frame -->
+            <div class="absolute -bottom-4 -right-4 w-full h-full rounded-3xl border-2" style="border-color: var(--accent-soft);"></div>
+            <!-- Photo -->
+            <img
+              src="hamza.jpg"
+              alt="Hamza Liverakos"
+              class="relative w-72 h-96 object-cover object-top rounded-3xl"
+              style="box-shadow: 0 20px 60px rgba(107,142,90,0.2);"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- ABOUT                                          -->
+  <!-- ============================================== -->
+  <section id="about" class="px-6 py-24 md:py-32 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-12 gap-12 items-start">
+        <div class="md:col-span-4 reveal">
+          <p class="section-label mb-4">01 — About</p>
+          <h2 class="font-display text-4xl md:text-5xl font-light leading-tight">
+            A bit <span class="italic" style="color: var(--accent-soft);">about</span> me.
+          </h2>
+        </div>
+        <div class="md:col-span-8 reveal">
+          <div class="space-y-6 text-lg leading-relaxed" style="color: var(--text-muted);">
+            <p>
+              I'm an IT professional with 4+ years of experience across <span style="color: var(--text);">technical support, security, and identity governance</span>. I currently work as a Support Analyst at LSquared, where I manage end-to-end hardware provisioning, build HubSpot automation workflows, and develop scripts to streamline customer onboarding.
+            </p>
+            <p>
+              I hold a <span style="color: var(--text);">Bachelor of Information Technology (Honours) in Networking and IT Security</span> from Ontario Tech University. My background spans IAM consulting (SailPoint IdentityIQ, Saviynt), penetration testing, and IT support across both enterprise and startup environments.
+            </p>
+            <p>
+              I'm passionate about finding where automation and process improvement can make the biggest impact — whether that's scripting repetitive tasks, designing cleaner workflows, or improving how teams handle support at scale.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- EXPERIENCE                                     -->
+  <!-- ============================================== -->
+  <section id="experience" class="px-6 py-24 md:py-32 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal mb-16">
+        <p class="section-label mb-4">02 — Experience</p>
+        <h2 class="font-display text-4xl md:text-5xl font-light leading-tight max-w-2xl">
+          Where I've been, <span class="italic" style="color: var(--accent-soft);">what I've built.</span>
+        </h2>
+      </div>
+
+      <div class="space-y-12">
+        <!-- LSquared -->
+        <div class="timeline-item relative pl-10 reveal">
+          <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full" style="background: var(--accent); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--accent);"></div>
+          <div class="flex flex-wrap items-baseline gap-4 mb-3">
+            <h3 class="font-display text-2xl font-medium">Support Analyst</h3>
+            <span class="font-mono text-xs px-3 py-1 rounded-full" style="background: var(--accent); color: var(--bg);">CURRENT</span>
+          </div>
+          <p class="font-mono text-sm mb-4" style="color: var(--text-muted);">LSquared · Sept 2025 — Present</p>
+          <ul class="space-y-2 text-base" style="color: var(--text-muted);">
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Managing 50–100 support tickets weekly across hardware, software, and account issues.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Building HubSpot workflows to automate ticket routing and recurring support tasks.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Owning end-to-end hardware fulfillment — imaging, configuration, and shipping.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Writing automation scripts to streamline customer onboarding.</li>
+          </ul>
+        </div>
+
+        <!-- IC-Consult -->
+        <div class="timeline-item relative pl-10 reveal">
+          <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full border-2" style="border-color: var(--accent); background: var(--bg);"></div>
+          <h3 class="font-display text-2xl font-medium mb-1">Associate IGA Consultant</h3>
+          <p class="font-mono text-sm mb-4" style="color: var(--text-muted);">IC-Consult · June 2024 — January 2025</p>
+          <ul class="space-y-2 text-base" style="color: var(--text-muted);">
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Designed IGA processes using SailPoint IdentityIQ and Saviynt — access reviews, user lifecycle, and provisioning policies.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Shaped IAM implementation roadmaps with stakeholder communication and weekly sprint participation.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Earned SailPoint IdentityIQ Associate and Saviynt Level 100/200 certifications.</li>
+          </ul>
+        </div>
+
+        <!-- ARHT -->
+        <div class="timeline-item relative pl-10 reveal">
+          <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full border-2" style="border-color: var(--accent); background: var(--bg);"></div>
+          <h3 class="font-display text-2xl font-medium mb-1">Security Analyst Intern</h3>
+          <p class="font-mono text-sm mb-4" style="color: var(--text-muted);">ARHT · Sept 2023 — Dec 2023</p>
+          <ul class="space-y-2 text-base" style="color: var(--text-muted);">
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Performed pentesting and vulnerability assessments; identified misconfigured auth that reduced unauthorized access risk by 40%.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Validated compatibility between critical services and hardware for live holographic events.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Delivered security recommendations to engineering and leadership.</li>
+          </ul>
+        </div>
+
+        <!-- Neuron Mobility -->
+        <div class="timeline-item relative pl-10 reveal">
+          <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full border-2" style="border-color: var(--accent); background: var(--bg);"></div>
+          <h3 class="font-display text-2xl font-medium mb-1">IT Support / Data Mapper</h3>
+          <p class="font-mono text-sm mb-4" style="color: var(--text-muted);">Neuron Mobility · March 2023 — Sept 2023</p>
+          <ul class="space-y-2 text-base" style="color: var(--text-muted);">
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Maintained 100% ticket resolution rate and authored onboarding documentation for technicians.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Implemented GIS-based geofencing zones in Oshawa and Ottawa for fleet compliance.</li>
+          </ul>
+        </div>
+
+        <!-- Comcast -->
+        <div class="timeline-item relative pl-10 reveal">
+          <div class="absolute left-0 top-2 w-3.5 h-3.5 rounded-full border-2" style="border-color: var(--accent); background: var(--bg);"></div>
+          <h3 class="font-display text-2xl font-medium mb-1">Technical Support</h3>
+          <p class="font-mono text-sm mb-4" style="color: var(--text-muted);">Comcast Corporation · Feb 2021 — Feb 2023</p>
+          <ul class="space-y-2 text-base" style="color: var(--text-muted);">
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Delivered multi-channel customer support with a 95% satisfaction rate.</li>
+            <li class="flex gap-3"><span style="color: var(--accent-soft);">→</span> Administered user accounts, applied security patches, and supported infrastructure migrations.</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- PROJECTS                                       -->
+  <!-- ============================================== -->
+  <section id="projects" class="px-6 py-24 md:py-32 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal mb-16">
+        <p class="section-label mb-4">03 — Projects</p>
+        <h2 class="font-display text-4xl md:text-5xl font-light leading-tight max-w-2xl">
+          Things I've <span class="italic" style="color: var(--accent-soft);">built</span> and broken.
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- PROJECT 1 — replace with your real project -->
+        <div class="card p-8 rounded-2xl reveal" style="background: var(--surface);">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: var(--bg-soft); border: 1px solid var(--line);">
+              <i data-lucide="network" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            </div>
+            <span class="font-mono text-xs" style="color: var(--text-muted);">2024</span>
+          </div>
+          <h3 class="font-display text-2xl font-medium mb-3">Enterprise Network Design</h3>
+          <p class="text-base mb-6 leading-relaxed" style="color: var(--text-muted);">
+            Planned a network infrastructure for a global enterprise covering multi-site connectivity, IP design, and VLAN segmentation.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Cisco</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">VLANs</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Subnetting</span>
+          </div>
+        </div>
+
+        <!-- PROJECT 2 -->
+        <div class="card p-8 rounded-2xl reveal" style="background: var(--surface);">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: var(--bg-soft); border: 1px solid var(--line);">
+              <i data-lucide="key-round" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            </div>
+            <span class="font-mono text-xs" style="color: var(--text-muted);">2024</span>
+          </div>
+          <h3 class="font-display text-2xl font-medium mb-3">IGA Process Documentation</h3>
+          <p class="text-base mb-6 leading-relaxed" style="color: var(--text-muted);">
+            Developed identity governance process documentation and supported provisioning workflows using SailPoint IdentityIQ and Saviynt.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">SailPoint</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Saviynt</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">IAM</span>
+          </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="card p-8 rounded-2xl reveal" style="background: var(--surface);">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: var(--bg-soft); border: 1px solid var(--line);">
+              <i data-lucide="map" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            </div>
+            <span class="font-mono text-xs" style="color: var(--text-muted);">2023</span>
+          </div>
+          <h3 class="font-display text-2xl font-medium mb-3">3D City Bus Route Visualization</h3>
+          <p class="text-base mb-6 leading-relaxed" style="color: var(--text-muted);">
+            Built a 3D model of proposed city bus routes in Blender, integrating GIS data to support urban planning concepts.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Blender</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">GIS</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Urban Planning</span>
+          </div>
+        </div>
+
+        <!-- PROJECT 4 — placeholder you can swap -->
+        <div class="card p-8 rounded-2xl reveal" style="background: var(--surface);">
+          <div class="flex items-start justify-between mb-6">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: var(--bg-soft); border: 1px solid var(--line);">
+              <i data-lucide="terminal" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            </div>
+            <span class="font-mono text-xs" style="color: var(--text-muted);">2025</span>
+          </div>
+          <h3 class="font-display text-2xl font-medium mb-3">Customer Onboarding Automation</h3>
+          <p class="text-base mb-6 leading-relaxed" style="color: var(--text-muted);">
+            Scripts and HubSpot workflows that automate new customer environment setup at LSquared, reducing manual onboarding time and config errors.
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">PowerShell</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">HubSpot</span>
+            <span class="font-mono text-xs px-3 py-1 rounded-full border" style="border-color: var(--line); color: var(--text-muted);">Automation</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- SKILLS                                         -->
+  <!-- ============================================== -->
+  <section id="skills" class="px-6 py-24 md:py-32 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal mb-16">
+        <p class="section-label mb-4">04 — Skills</p>
+        <h2 class="font-display text-4xl md:text-5xl font-light leading-tight max-w-2xl">
+          The <span class="italic" style="color: var(--accent-soft);">toolkit</span>.
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="reveal">
+          <div class="flex items-center gap-3 mb-5">
+            <i data-lucide="monitor" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            <h3 class="font-mono text-xs uppercase tracking-widest" style="color: var(--text);">OS & Scripting</h3>
+          </div>
+          <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
+            <li>Windows 10/11</li>
+            <li>macOS</li>
+            <li>Linux</li>
+            <li>PowerShell</li>
+            <li>Python</li>
+            <li>Bash</li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <div class="flex items-center gap-3 mb-5">
+            <i data-lucide="wrench" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            <h3 class="font-mono text-xs uppercase tracking-widest" style="color: var(--text);">Support Tools</h3>
+          </div>
+          <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
+            <li>Microsoft 365</li>
+            <li>Active Directory</li>
+            <li>HubSpot</li>
+            <li>ServiceNow</li>
+            <li>SCCM</li>
+            <li>Jira & Git</li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <div class="flex items-center gap-3 mb-5">
+            <i data-lucide="network" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            <h3 class="font-mono text-xs uppercase tracking-widest" style="color: var(--text);">Networking</h3>
+          </div>
+          <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
+            <li>DNS / DHCP</li>
+            <li>VLAN Configuration</li>
+            <li>Firewall Management</li>
+            <li>Subnetting</li>
+            <li>Layer 1–3 Troubleshooting</li>
+            <li>Cisco CCNA</li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <div class="flex items-center gap-3 mb-5">
+            <i data-lucide="shield" class="w-5 h-5" style="color: var(--accent-soft);"></i>
+            <h3 class="font-mono text-xs uppercase tracking-widest" style="color: var(--text);">IAM & Security</h3>
+          </div>
+          <ul class="space-y-2 text-sm" style="color: var(--text-muted);">
+            <li>SailPoint IdentityIQ</li>
+            <li>Saviynt</li>
+            <li>Access Management</li>
+            <li>User Provisioning</li>
+            <li>Vulnerability Assessment</li>
+            <li>Penetration Testing</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- CONTACT                                        -->
+  <!-- ============================================== -->
+  <section id="contact" class="px-6 py-24 md:py-32 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal mb-12">
+        <p class="section-label mb-4">05 — Contact</p>
+        <h2 class="font-display text-5xl md:text-7xl font-light leading-[1.05] max-w-3xl">
+          Let's build something <span class="italic" style="color: var(--accent-soft);">together.</span>
+        </h2>
+      </div>
+
+      <div class="reveal grid md:grid-cols-3 gap-4 mt-16">
+        <a href="mailto:hliverakos@gmail.com" class="card p-6 rounded-xl group" style="background: var(--surface);">
+          <i data-lucide="mail" class="w-5 h-5 mb-4" style="color: var(--accent);"></i>
+          <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Email</p>
+          <p class="text-base transition-colors break-all" style="color: var(--text);">hliverakos@gmail.com</p>
+        </a>
+        <a href="https://www.linkedin.com/in/hliverakos" target="_blank" rel="noopener" class="card p-6 rounded-xl group" style="background: var(--surface);">
+          <i data-lucide="linkedin" class="w-5 h-5 mb-4" style="color: var(--accent);"></i>
+          <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">LinkedIn</p>
+          <p class="text-base transition-colors" style="color: var(--text);">linkedin.com/in/hliverakos</p>
+        </a>
+        <a href="tel:9059220396" class="card p-6 rounded-xl group" style="background: var(--surface);">
+          <i data-lucide="phone" class="w-5 h-5 mb-4" style="color: var(--accent);"></i>
+          <p class="font-mono text-xs uppercase tracking-widest mb-1" style="color: var(--text-muted);">Phone</p>
+          <p class="text-base transition-colors" style="color: var(--text);">905-922-0396</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================== -->
+  <!-- FOOTER                                         -->
+  <!-- ============================================== -->
+  <footer class="px-6 py-10 border-t" style="border-color: var(--line);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="font-mono text-xs" style="color: var(--text-muted);">
+        © 2026 Hamza Liverakos — Built with care.
+      </p>
+      <p class="font-mono text-xs" style="color: var(--text-muted);">
+        Oshawa, Ontario · 🇨🇦
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================== -->
+  <!-- SCRIPTS                                        -->
+  <!-- ============================================== -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Reveal-on-scroll observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
